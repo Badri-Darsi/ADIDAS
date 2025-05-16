@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adidas-Inspired Site</title>
+  <!-- Import Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <!-- GSAP Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-sodts3e4FdONK2E1C2kh2LhH7etL2aQFzbYh92RkcXWBidPNU/FF1mKl3xpmUgGYtLArdD6V/xr9s2nLjBf+EQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <style>
+    :root {
+      --primary-color: #000000;
+      --secondary-color: #f5f5f5;
+      --accent-color: #ff6600;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+    }
+    
+    /* Header and Navigation */
+    header {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 15px 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    
+    nav ul li {
+      margin-left: 25px;
+    }
+    
+    nav ul li a {
+      text-decoration: none;
+      color: var(--secondary-color);
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      color: var(--accent-color);
+    }
+    
+    /* Mobile Navigation Toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    
+    .nav-toggle span {
+      background: var(--secondary-color);
+      height: 3px;
+      width: 25px;
+      margin-bottom: 4px;
+      border-radius: 2px;
+    }
+    
+    /* Responsive Mobile Menu */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: var(--primary-color);
+        width: 200px;
+        display: none;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      
+      nav ul.active {
+        display: block;
+      }
+      
+      nav ul li {
+        margin: 10px 0;
+      }
+      
+      .nav-toggle {
+        display: flex;
+      }
+    }
+    
+    /* Banner Section */
+    .banner {
+      background-image: url('https://via.placeholder.com/1920x600');
+      background-size: cover;
+      background-position: center;
+      height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 70px; /* Create space due to fixed header */
+      position: relative;
+    }
+    
+    .banner h1 {
+      font-size: 3.5rem;
+      color: var(--secondary-color);
+      text-transform: uppercase;
+      text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+    }
+    
+    /* Filter Buttons for Product Categories */
+    .filter-buttons {
+      max-width: 1200px;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .filter-buttons button {
+      padding: 8px 15px;
+      border: none;
+      background-color: var(--accent-color);
+      color: var(--secondary-color);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .filter-buttons button:hover,
+    .filter-buttons button.active {
+      background-color: #ff4500;
+    }
+    
+    /* Products Section Using CSS Grid for a Magazine-Style Layout */
+    .products {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .card {
+      background: var(--secondary-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .card-content {
+      padding: 15px;
+    }
+    
+    .card-content h3 {
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+    
+    .card-content p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      background-color: var(--accent-color);
+      padding: 10px 20px;
+      text-decoration: none;
+      color: var(--secondary-color);
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #ff4500;
+    }
+    
+    /* Contact Section */
+    .contact {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">YourBrand</div>
+      <div class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav>
+        <ul id="navLinks">
+          <li><a href="#home" onclick="smoothScroll('home')">Home</a></li>
+          <li><a href="#products" onclick="smoothScroll('products')">Products</a></li>
+          <li><a href="#contact" onclick="smoothScroll('contact')">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner Section -->
+  <section class="banner" id="home">
+    <h1>Step Into Greatness</h1>
+  </section>
+  
+  <!-- Product Filter Buttons -->
+  <div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="shoes">Shoes</button>
+    <button class="filter-btn" data-filter="clothing">Clothing</button>
+    <button class="filter-btn" data-filter="accessories">Accessories</button>
+  </div>
+  
+  <!-- Products Section -->
+  <section class="products" id="products">
+    <!-- Product Card 1 -->
+    <div class="card" data-category="shoes">
+      <img src="https://via.placeholder.com/400x200" alt="Shoe Classic" />
+      <div class="card-content">
+        <h3>Shoe Classic</h3>
+        <p>A timeless pair of shoes combining style and comfort.</p>
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
+    <!-- Product Card 2 -->
+    <div class="card" data-category="clothing">
+      <img src="https://via.placeholder.com/400x200" alt="Sport Jacket" />
+      <div class="card-content">
+        <h3>Sport Jacket</h3>
+        <p>Performance and style blended into one stunning jacket.</p>
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
+    <!-- Product Card 3 -->
+    <div class="card" data-category="accessories">
+      <img src="https://via.placeholder.com/400x200" alt="Cap Collection" />
+      <div class="card-content">
+        <h3>Cap Collection</h3>
+        <p>Caps that elevate your athletic look to new heights.</p>
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
+    <!-- Product Card 4 -->
+    <div class="card" data-category="shoes">
+      <img src="https://via.placeholder.com/400x200" alt="Runner Elite" />
+      <div class="card-content">
+        <h3>Runner Elite</h3>
+        <p>Designed for speed and comfort, perfect for your runs.</p>
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
+    <!-- Product Card 5 -->
+    <div class="card" data-category="clothing">
+      <img src="https://via.placeholder.com/400x200" alt="Active Tee" />
+      <div class="card-content">
+        <h3>Active Tee</h3>
+        <p>Stay cool and comfortable with our performance tees.</p>
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
+    <!-- Product Card 6 -->
+    <div class="card" data-category="accessories">
+      <img src="https://via.placeholder.com/400x200" alt="Sport Watch" />
+      <div class="card-content">
+        <h3>Sport Watch</h3>
+        <p>A sleek design to keep track of your performance.</p>
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <p>For questions or inquiries, email us at <a href="mailto:info@yourbrand.com">info@yourbrand.com</a></p>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 YourBrand. All rights reserved.</p>
+  </footer>
+  
+  <!-- JavaScript for Dynamic Interactions -->
+  <script>
+    // Smooth scrolling functionality
+    function smoothScroll(targetId) {
+      const targetElement = document.getElementById(targetId);
+      window.scroll({
+        top: targetElement.offsetTop - 60, // Offset for fixed header
+        behavior: 'smooth'
+      });
+    }
+    
+    // Mobile Navigation Toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Product Filter Functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const productCards = document.querySelectorAll('.card');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Activate selected button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        const filter = button.getAttribute('data-filter');
+        
+        productCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+            gsap.to(card, { opacity: 1, duration: 0.5 });
+          } else {
+            gsap.to(card, { opacity: 0, duration: 0.5, onComplete: () => {
+              card.style.display = 'none';
+            }});
+          }
+        });
+      });
+    });
+    
+    // GSAP Animation for Banner Headline
+    gsap.to(".banner h1", { 
+      opacity: 1, 
+      duration: 1.5, 
+      delay: 0.5, 
+      ease: "power2.inOut" 
+    });
+    
+    // GSAP Staggered Animation for Product Cards on Page Load
+    gsap.from(".card", { 
+      opacity: 0, 
+      y: 20, 
+      duration: 0.7, 
+      stagger: 0.2, 
+      ease: "power2.out" 
+    });
+  </script>
+</body>
+</html>
